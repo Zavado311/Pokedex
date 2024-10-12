@@ -1,0 +1,153 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(243, 243, 243);
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+header {
+  background: linear-gradient(
+    to bottom right,
+    rgb(141, 141, 223),
+    rgb(173, 208, 225)
+  );
+}
+
+.overallMenu {
+  max-width: 1440px;
+  padding: 20px 15px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.sectionDesign {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.name {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.overPokeImg {
+  display: flex;
+  align-items: center;
+}
+
+.pokeImg {
+  height: 80px;
+  position: relative;
+  animation: pokeballAnimation 0.4s ;
+}
+
+.logo img {
+  height: 80px;
+}
+
+.contentOverall {
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+}
+
+.contentDesign {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pokemoncard {
+  width: 200px;
+  background-color: rgb(245, 236, 236);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.pokemonName {
+  font-size: 24px;
+}
+
+.BGgrass {
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 0, 0, 0),
+    rgba(54, 209, 80, 0.774)
+  );
+}
+
+.grass {
+  background-image: url(/assets/icons/grassIcon.png);
+  opacity: 0.5;
+  height: 100%; /* You must set a specified height */
+  background-size: cover;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+}
+
+.showMeMore {
+  display: flex;
+  justify-content: center;
+}
+
+.showButton {
+  cursor: pointer;
+  background-color: red;
+  padding: 16px 8px;
+  border-radius: 5px;
+  border: none;
+}
+
+.d-none {
+  display: none;
+}
+
+@keyframes pokeballAnimation {
+  0% {
+    left: -10px;
+    top: 0px;
+    transform: rotate(-20deg);
+  }
+  25% {
+    left: 10px;
+    top: 0px;
+    transform: rotate(20deg);
+  }
+  50% {
+    left: -10px;
+    top: 0px;
+    transform: rotate(-20deg);
+  }
+  75% {
+    left: 5px;
+    top: 0px;
+    transform: rotate(5deg);
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+    transform: rotate(0deg);
+  }
+}
