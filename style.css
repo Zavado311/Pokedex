@@ -1,15 +1,35 @@
 * {
   box-sizing: border-box;
+  scroll-behavior: smooth;
   margin: 0;
   padding: 0;
 }
 
+@font-face {
+  font-family: "Roboto";
+  font-weight: normal;
+  src: url("/assets/fonts/roboto-regular-webfont.woff2") format("woff2"),
+    url("/assets/fonts/roboto-regular-webfont.woff") format("woff");
+
+  font-style: normal;
+}
+
 body {
   background-color: rgb(243, 243, 243);
+  font-family: "Roboto", sans-serif;
 }
 
 body.no-scroll {
   overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+li {
+  list-style: none;
 }
 
 header {
@@ -54,7 +74,8 @@ header {
 .pokeImg {
   height: 80px;
   position: relative;
-  animation: pokeballAnimation 0.4s ;
+  animation: pokeballAnimation 0.4s;
+  animation-delay: 2s;
 }
 
 .logo img {
@@ -77,35 +98,40 @@ header {
 
 .pokemoncard {
   width: 200px;
+  height: auto;
+  padding: 24px 0;
   background-color: rgb(245, 236, 236);
-  border-radius: 5px;
+  border-radius: 16px;
+  transition: transform .2s;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   text-align: center;
   cursor: pointer;
 }
 
-.pokemonName {
-  font-size: 24px;
+.pokemoncard:hover {
+  transform: scale(1.02);
 }
 
+.pokemonIdentification {
+display: flex;
+flex-direction: row;
+}
+
+.pokemonDisplayName {
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+/*
 .BGgrass {
   background-image: linear-gradient(
     to top,
     rgba(255, 0, 0, 0),
     rgba(54, 209, 80, 0.774)
   );
-}
-
-.grass {
-  background-image: url(/assets/icons/grassIcon.png);
-  opacity: 0.5;
-  height: 100%; /* You must set a specified height */
-  background-size: cover;
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-}
+  border-radius: 16px;
+}*/
 
 .showMeMore {
   display: flex;
@@ -114,14 +140,24 @@ header {
 
 .showButton {
   cursor: pointer;
-  background-color: red;
-  padding: 16px 8px;
-  border-radius: 5px;
+  background-color: #06a709;
+  color: white;
+  padding: 16px 16px;
+  border-radius: 40px;
   border: none;
 }
 
 .d-none {
   display: none;
+}
+
+.imageShow img {
+  max-width: 100%;
+  height: 80px; 
+}
+.imageShow img {
+  max-width: 100%;
+  height: 80px; 
 }
 
 @keyframes pokeballAnimation {

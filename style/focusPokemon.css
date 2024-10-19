@@ -1,56 +1,135 @@
 .backGround {
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 999;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .showPokemon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-  }
-  
-  .overCard {
-    background-color: beige;
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 400px;
-    height: 80%;
-  }
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+}
 
-  .pokemonName {
-    padding-top: 16px;
-    font-size: 26px;
-    text-transform: capitalize;
-  }
+.showPokemon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  gap: 8px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
 
-  .BGwhite {
-    background-color: white;
-    width: 100%;
-    height: 100%;
-    border-radius: 24px;
-    padding: 16px 8px;
-  }
+.overCard {
+  background-color: #9caddf;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  margin: 0 16px;
+}
 
-  .imageFocusPokemon img {
-    height: 200px;
-  }
+.PokecardWithNavigation {
+  display: flex;
+  flex-direction: row;
+}
 
-  .categoryInformation {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-  }
+.navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 36px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1000;
+}
+
+.leftArrow {
+  left: 50px;
+}
+
+.rightArrow {
+  right: 50px;
+}
+
+.closeButtonX {
+  position: absolute;
+  top: 15px;
+  right: 50px;
+  color: white;
+  font-size: 32px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pokemonName {
+  padding-top: 16px;
+  font-size: 26px;
+  text-transform: capitalize;
+}
+
+.pokemonId {
+  padding-bottom: 8px;
+}
+
+.BGwhite {
+  background-color: white;
+  width: 100%;
+  min-height: 40vh;
+  border-radius: 24px;
+  padding: 16px 8px;
+}
+
+.imageFocusPokemon img {
+  height: 200px;
+}
+
+.categoryInformation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.categoryInformation li a {
+  border-radius: 5px;
+  background-color: rgb(245, 236, 236);
+  padding: 8px 16px;
+}
+
+.categoryTitles {
+  font-size: 24px;
+  text-decoration: underline;
+  padding-bottom: 25px;
+}
+
+.evolutionPokemonImage {
+  height: 50px;
+}
+
+.overEvolutionPokemon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.overEvolutionPokemonPreview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 0;
+  background-color: rgb(245, 236, 236);
+  border-radius: 8px;
+}
+
+.evolutionAngle {
+  height: 30px;
+}
