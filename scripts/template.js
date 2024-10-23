@@ -4,7 +4,9 @@ let thirdEvolutionPokemon = "";
 
 function getPokemons(pokemon, index) {
   return `
-    <div class="pokemoncard BG${pokemon.types[0].type.name}" onclick="showPokemon(${index})">
+    <div class="pokemoncard BG${
+      pokemon.types[0].type.name
+    }" onclick="showPokemon(${index})">
     <div id="backgroundPokemon${index}" class="imageShow">
     <div id="backgroundPokemonImage${index}"><img src="${
     pokemonObjectArray[index].sprites.other.dream_world.front_default
@@ -53,7 +55,6 @@ function getInformationOfPokemon() {
   <div id="showCategory" class="showCategory"></div>
   </div>
   <div class="closeButtonX" onclick="closeButton()">X</div></div>
-  
   `;
 }
 

@@ -29,18 +29,10 @@ async function loadRenderJSON() {
 
 async function renderPokemon() {
   try {
-    const fetchPromises = pokemonJSONArray.results.map((pokemonId) =>
-      fetch(pokemonId.url).then((response) => response.json())
-    );
-
-    pokemonObjectArray = await Promise.all(fetchPromises);
-
+    await fetchpokemonObjectArray();
     document.getElementById("content").innerHTML = "";
     pokemonObjectArray.forEach((pokemonObject, index) => {
-      document.getElementById("content").innerHTML += getPokemons(
-        pokemonObject,
-        index
-      );
+      document.getElementById("content").innerHTML += getPokemons(pokemonObject, index);
       getPokemonTypes(pokemonObject, index);
     });
   } catch (error) {
@@ -48,6 +40,14 @@ async function renderPokemon() {
     document.getElementById("content").innerHTML =
       "Es gab ein Problem beim Abrufen der Daten.";
   }
+}
+
+async function fetchpokemonObjectArray() {
+  const fetchPromises = pokemonJSONArray.results.map((pokemonId) =>
+    fetch(pokemonId.url).then((response) => response.json())
+  );
+
+  pokemonObjectArray = await Promise.all(fetchPromises);
 }
 
 async function loadJSONShowPokemon(index) {
@@ -70,21 +70,27 @@ async function showPokemon(index) {
   await loadJSONShowPokemon(index);
 
   try {
-    document.getElementById("showCurrentPokemon").classList.remove("d-none");
-    document.body.classList.add("no-scroll");
+    designElements(index);
     document.getElementById("focusPokemon").innerHTML =
     getInformationOfPokemon();
     getAboutPokemon();
-    if(index == 1) {
-      document.getElementById("leftArrow").classList.add("d-none");}
-    if(index == 1010){
-      document.getElementById("rightArrow").classList.add("d-none");}
+
   } catch (error) {
     console.error("Fehler beim Abrufen der Daten:", error);
-    document.getElementById("showCurrentPokemon").classList.remove("d-none");
-    document.body.classList.add("no-scroll");
     document.getElementById("focusPokemon").innerHTML =
       "Es gab ein Problem beim Abrufen der Daten.";
+  }
+}
+
+function designElements(index) {
+  document.getElementById("showCurrentPokemon").classList.remove("d-none");
+  document.body.classList.add("no-scroll");
+  if (index == 1) {
+    document.getElementById("leftArrow").classList.add("d-none");
+  }
+
+  if (index == 1010) {
+    document.getElementById("rightArrow").classList.add("d-none");
   }
 }
 
