@@ -1,21 +1,26 @@
 let BASE_URL = "https://pokeapi.co/api/v2/";
-let showValue = 25;
+let showValue = 30;
 let pokemonJSONArray = [];
 let pokemonObjectArray = [];
 let focusPokemon = [];
-let descriptionfocusPokemon = [];
 let evolutionfocusPokemon = [];
-
-let firstEvolutionPokemon = "";
-let secondEvolutionPokemon = "";
-let thirdEvolutionPokemon = "";
+let chainFocusPokemon = [];
 
 async function init() {
-  await loadJSON();
-  renderPokemon();
+  document.getElementById("showButton").classList.add("d-none");
+  loadingPlaceholder();
+  await loadRenderJSON();
+  document.getElementById("showButton").classList.remove("d-none");
+  await renderPokemon();
 }
 
-async function loadJSON() {
+async function showMeMore() {
+  showValue += 20;
+  await loadRenderJSON();
+  await renderPokemon();
+}
+
+async function loadRenderJSON() {
   let response = await fetch(
     BASE_URL + "pokemon?limit=" + showValue + "&offset=0"
   );
@@ -23,8 +28,6 @@ async function loadJSON() {
 }
 
 async function renderPokemon() {
-  document.getElementById("content").innerHTML = "";
-
   try {
     const fetchPromises = pokemonJSONArray.results.map((pokemonId) =>
       fetch(pokemonId.url).then((response) => response.json())
@@ -32,6 +35,7 @@ async function renderPokemon() {
 
     pokemonObjectArray = await Promise.all(fetchPromises);
 
+    document.getElementById("content").innerHTML = "";
     pokemonObjectArray.forEach((pokemonObject, index) => {
       document.getElementById("content").innerHTML += getPokemons(
         pokemonObject,
@@ -46,64 +50,43 @@ async function renderPokemon() {
   }
 }
 
-function getPokemonTypes(pokemon, numberPokemon) {
-  for (let index = 0; index < pokemon.types.length; index++) {
-    document
-      .getElementById(`backgroundPokemon${numberPokemon}`)
-      .classList.add(`BG${pokemon.types[0].type.name}`);
-    document
-      .getElementById(`backgroundPokemonImage${numberPokemon}`)
-      .classList.add(`${pokemon.types[0].type.name}`);
-    document.getElementById(
-      `typesPokemon${numberPokemon}`
-    ).innerHTML += `<div>${pokemon.types[index].type.name}</div>`;
-  }
+async function loadJSONShowPokemon(index) {
+  let getFocusPokemon = await fetch(BASE_URL + "pokemon/" + index);
+  focusPokemon = await getFocusPokemon.json();
+
+  let getChainFocusPokemon = await fetch(BASE_URL + "pokemon-species/" + index);
+  chainFocusPokemon = await getChainFocusPokemon.json();
 }
 
-async function showMeMore() {
-  showValue += 20;
-  await loadJSON();
-  await renderPokemon();
+async function loadJSONEvolutionShowPokemon() {
+  let getEvolutionFocusPokemon = await fetch(
+    chainFocusPokemon.evolution_chain.url
+  );
+  evolutionfocusPokemon = await getEvolutionFocusPokemon.json();
 }
 
 async function showPokemon(index) {
   ++index;
-try {
-   let getFocusPokemon = await fetch(BASE_URL + "pokemon/" + index);
-  focusPokemon = await getFocusPokemon.json();
+  await loadJSONShowPokemon(index);
 
-  let getDescriptionFocusPokemon = await fetch(
-    BASE_URL + "characteristic/" + index
-  );
-  descriptionfocusPokemon = await getDescriptionFocusPokemon.json();
-
-  let getChainFocusPokemon = await fetch(BASE_URL + "pokemon-species/" + index);
-  getChainFocusPokemon = await getChainFocusPokemon.json();
-
-  let getEvolutionFocusPokemon = await fetch(
-    getChainFocusPokemon.evolution_chain.url
-  );
-  evolutionfocusPokemon = await getEvolutionFocusPokemon.json();
-
-  document.getElementById("showCurrentPokemon").classList.remove("d-none");
-  document.body.classList.add("no-scroll");
-  document.getElementById("focusPokemon").innerHTML = getInformationOfPokemon();
-  getAboutPokemon();
-} catch (error) {
-  console.error("Fehler beim Abrufen der Daten:", error);
-    document.getElementById("content").innerHTML =
+  try {
+    document.getElementById("showCurrentPokemon").classList.remove("d-none");
+    document.body.classList.add("no-scroll");
+    document.getElementById("focusPokemon").innerHTML =
+    getInformationOfPokemon();
+    getAboutPokemon();
+    if(index == 1) {
+      document.getElementById("leftArrow").classList.add("d-none");}
+    if(index == 1010){
+      document.getElementById("rightArrow").classList.add("d-none");}
+  } catch (error) {
+    console.error("Fehler beim Abrufen der Daten:", error);
+    document.getElementById("showCurrentPokemon").classList.remove("d-none");
+    document.body.classList.add("no-scroll");
+    document.getElementById("focusPokemon").innerHTML =
       "Es gab ein Problem beim Abrufen der Daten.";
+  }
 }
- 
-}
-
-function closeButton(params) {
-  document.getElementById("showCurrentPokemon").classList.add("d-none");
-  document.body.classList.remove('no-scroll');
-}
-
-
-/* document.body.classList.remove('no-scroll'); beutzen!!! */
 
 async function loadPrev(index) {
   if (index <= 1) {
@@ -112,7 +95,6 @@ async function loadPrev(index) {
     index--;
     index--;
     await showPokemon(index);
-    console.log(index);
   }
 }
 
@@ -123,4 +105,9 @@ async function loadNext(index) {
   } else {
     await showPokemon(index);
   }
+}
+
+function closeButton() {
+  document.getElementById("showCurrentPokemon").classList.add("d-none");
+  document.body.classList.remove("no-scroll");
 }
